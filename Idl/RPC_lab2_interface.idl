@@ -1,0 +1,25 @@
+import "oaidl.idl";
+import "ocidl.idl";
+[
+	uuid(64fd4134-1300-11eb-adc1-0242ac120002),
+	version(1.0),
+	implicit_handle(handle_t interface_handle)
+]
+interface RPC_lab2_interface
+	{
+	const int IO_BUF_SIZE = 1024;
+	int RPC_login([in] handle_t IdHandle,
+		[in, string] unsigned char* username,
+		[in, string] unsigned char* password);
+	void RPC_logout();
+	int RPC_download([in, string] const char* pathToFile,
+		[in, out, size_is(IO_BUF_SIZE)] char* data,
+		[in, out] unsigned int* sizePayload,
+		[in, out] unsigned int* fileFullSize);
+	int RPC_upload([in, string] const char* pathToFile,
+		[in] int sizePayload,
+		[in, size_is(sizePayload)] char* data,
+		[in] unsigned int fileFullSize);
+	int RPC_delete([in, string] const char* pathToFile);
+	void RPC_exit();
+}
